@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+Copyright 2018 The Go Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ImageWand</title>
+</head>
+
+<body>
+	<h1>ImageWand</h1>
+	<h2>Convert files on the client-side using WASM</h2>
+
+	<form>
+		<input type="file" accept="image/*" onchange='handleUpload(this)' value='Upload' id='uploader' />
+		<select name="format" id="format">
+			<option value="png">To PNG</option>
+			<option value="jpg">To JPG</option>
+			<option value="bmp">To BMP</option>
+			<option value="tiff">To TIFF</option>
+			<option value="gif">To GIF</option>
+		</select>
+		<input type="submit" />
+	</form>
+	<div id='output' style='display:none'/>
+		<img width='100%' />
+		<a href='#' download>Download</a>
+	</div>
+
+	<script src="wasm_exec.js"></script>
+	<script src="main.js"></script>
+</body>
+
+</html>

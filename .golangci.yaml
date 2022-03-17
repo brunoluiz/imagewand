@@ -1,0 +1,89 @@
+run:
+  timeout: 15m
+  skip-files:
+    - ".*\\.pb\\.go"
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters-settings:
+  dupl:
+    threshold: 100
+  funlen:
+    lines: 100
+    statements: 50
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - opinionated
+      - performance
+      - style
+    disable-tags:
+      - experimental
+  gocyclo:
+    min-complexity: 20
+  govet:
+    check-shadowing: true
+  lll:
+    line-length: 140
+  prealloc:
+    simple: true
+    range-loops: true
+    for-loops: true
+  nolintlint:
+    require-specific: true
+    require-explanation: true
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - deadcode
+    - depguard
+    - dogsled
+    - dupl
+    - errcheck
+    - funlen
+    - gochecknoinits
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - goimports
+    - revive
+    - goprintffuncname
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - lll
+    - misspell
+    - nakedret
+    - nolintlint
+    - rowserrcheck
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unparam
+    - unused
+    - varcheck
+    - whitespace
+    - asciicheck
+    - gochecknoglobals
+    - gocognit
+    - nestif
+    - prealloc
+    - testpackage
+    - exportloopref
+    - gas
+    - gofumpt
+    - errorlint
+    - durationcheck
+    - bodyclose
+    - contextcheck
+    - bidichk
+  # don't enable for now:
+  #  - wsl
