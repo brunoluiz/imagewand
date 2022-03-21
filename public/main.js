@@ -1,15 +1,64 @@
+const wasmWorker = (modulePath, exportedKey) => {
+  // Create an object to later interact with
+  const proxy = {};
+
+  // Keep track of the messages being sent so we can resolve them correctly
+  let id = 0;
+  let idPromises = {};
+
+  return new Promise((resolve, reject) => {
+    const worker = new Worker("worker.js");
+    worker.postMessage({
+      eventType: "INITIALISE_GO_WASM",
+      eventData: { modulePath, exportedKey },
+    });
+
+    worker.addEventListener("message", (event) => {
+      const { eventType, eventData, eventId } = event.data;
+
+      switch (eventType) {
+        case "INITIALISED":
+          const methods = event.data.eventData;
+          methods.forEach((method) => {
+            proxy[method] = function () {
+              return new Promise((resolve, reject) => {
+                worker.postMessage({
+                  eventType: "CALL",
+                  eventData: {
+                    method: method,
+                    arguments: Array.from(arguments), // arguments is not an array
+                  },
+                  eventId: id,
+                });
+
+                idPromises[id] = { resolve, reject };
+                id++;
+              });
+            };
+          });
+          resolve(proxy);
+          return;
+        case "RESULT":
+          if (eventId !== undefined && idPromises[eventId]) {
+            idPromises[eventId].resolve(eventData);
+            delete idPromises[eventId];
+          }
+          return;
+        case "ERROR":
+          if (eventId !== undefined && idPromises[eventId]) {
+            idPromises[eventId].reject(event.data.eventData);
+            delete idPromises[eventId];
+          }
+          return;
+      }
+    });
+
+    worker.addEventListener("error", (error) => reject(error));
+  });
+};
+
 (async () => {
-  try {
-    const go = new window.Go();
-    const result = await WebAssembly.instantiateStreaming(
-      fetch("main.wasm"),
-      go.importObject
-    );
-    const inst = result.instance;
-    go.run(inst); // fire and forget
-  } catch (err) {
-    console.error(err);
-  }
+  const inst = await wasmWorker('./main.wasm', 'wand')
 
   let buf;
   document.querySelector("form").onsubmit = async (e) => {
@@ -19,8 +68,8 @@
     const format = document.querySelector('select[name="format"]').value;
 
     // Calls Golang WASM runtime and receive HTTP response
-    const res = await wand.convertFromBlob(format, new Uint8Array(buf));
-    const blob = await res.blob();
+    const arrayBuffer = await inst.convertFromBlob(format, new Uint8Array(buf));
+    const blob = new Blob([arrayBuffer])
 
     // Creates local ObjectURL, used for download and display
     const objectURL = URL.createObjectURL(blob);

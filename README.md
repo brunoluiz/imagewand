@@ -16,3 +16,8 @@ Converts images on the browser, using Golang + WASM
 # References
 
 - https://withblue.ink/2020/10/03/go-webassembly-http-requests-and-promises.html
+- https://github.com/golang/go/issues/25612
+- https://stackoverflow.com/questions/67978442/go-wasm-export-functions
+- https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects
+- https://qvault.io/golang/running-go-in-the-browser-wasm-web-workers/
+- https://www.sitepen.com/blog/using-webassembly-with-web-workers
