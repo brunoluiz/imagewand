@@ -8,27 +8,75 @@ license that can be found in the LICENSE file.
 <head>
 	<meta charset="utf-8">
 	<title>ImageWand</title>
+  <link href="./main.css" rel="stylesheet">
 </head>
 
-<body>
-	<h1>ImageWand</h1>
-	<h2>Convert files on the client-side using WASM</h2>
+<body class='h-screen'>
+	<main class='max-w-4xl m-auto'>
+		<div class='pt-12 mb-20'>
+			<h1 class='text-4xl font-bold mb-3 tracking-tight text-stone-900'>ImageWand</h1>
+			<h2 class='text-xl font-medium tracking-tight text-stone-700'>Convert images at client-side using Golang & WASM</h2>
+		</div>
 
-	<form>
-		<input type="file" accept="image/*" onchange='handleUpload(this)' value='Upload' id='uploader' />
-		<select name="format" id="format">
-			<option value="png">To PNG</option>
-			<option value="jpg">To JPG</option>
-			<option value="bmp">To BMP</option>
-			<option value="tiff">To TIFF</option>
-			<option value="gif">To GIF</option>
-		</select>
-		<input type="submit" />
-	</form>
-	<div id='output' style='display:none'/>
-		<img width='100%' />
-		<a href='#' download>Download</a>
-	</div>
+		<form>
+			<div id='dropzone' class='
+				w-full h-64 text-center
+				flex justify-center
+				align-middle relative
+				border-4 border-dashed rounded-lg
+				border-stone-300
+				transition ease-in-out
+				cursor-pointer
+				mb-5
+			'>
+				<span
+					class='text-center m-auto font-semibold text-xl'
+				>🖼️ Drop single image or click to select file</span>
+				<input
+					id='uploader'
+					type="file"
+					accept="image/*"
+					onchange='handleUpload(this)'
+					class='opacity-0 absolute left-0 top-0 bottom-0 right-0 cursor-pointer'
+				/>
+			</div>
+			<div id='form-actions' class='flex justify-end gap-3'>
+				<select
+					id="format"
+					name="format"
+					class='
+					 border-4 border-stone-600 rounded-lg
+					 px-5 py-3
+					 font-bold w-1/4'
+				>
+					<option value="png">To PNG</option>
+					<option value="jpeg">To JPG</option>
+					<option value="bmp">To BMP</option>
+					<option value="gif">To GIF</option>
+					<option value="tiff">To TIFF</option>
+				</select>
+				<button
+					type="submit"
+					class='
+						border-4 border-rose-500 rounded-lg
+						px-10 py-3
+						font-bold text-stone-100
+						bg-gradient-to-tl from-pink-500 via-red-500 to-yellow-500
+						transition ease-in-out
+						cursor-pointer
+						hover:scale-105 hover:brightness-105
+						active:scale-100 active:brightness-95'
+				/>
+					Wololo
+				</button>
+			</div>
+		</form>
+
+		<div id='output' style='display:none'/>
+			<img width='100%' />
+			<a href='#' download>Download</a>
+		</div>
+	</main>
 
 	<script src="wasm_exec.js"></script>
 	<script src="main.js"></script>
