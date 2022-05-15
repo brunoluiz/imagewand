@@ -21,3 +21,6 @@ Converts images on the browser, using Golang + WASM
 - https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects
 - https://qvault.io/golang/running-go-in-the-browser-wasm-web-workers/
 - https://www.sitepen.com/blog/using-webassembly-with-web-workers
+
+## Optimisations
+- https://www.fermyon.com/blog/optimizing-tinygo-wasm
