@@ -26,5 +26,3 @@ const colorsState = {
     "text-emerald-700",
   ],
 };
-
-

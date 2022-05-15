@@ -48,16 +48,23 @@ self.addEventListener(
           .then(async (wasmInstance) => {
             const method = wasmInstance[eventData.method];
             const result = await method.apply(null, eventData.arguments);
+            let buf, transferable;
 
-            // If it was a Uint8Array or any other buffer, try to unpack it in an ArrayBuffer
-            const buf =
-              !!result && result.byteLength !== undefined
-                ? new ArrayBuffer(
-                    result.buffer,
-                    result.byteOffset,
-                    result.byteLength
-                  )
-                : result;
+            if (!!result && result.byteLength !== undefined) {
+              // If it was a Uint8Array or any other buffer, try to unpack it in an ArrayBuffer
+              buf = new ArrayBuffer(
+                result.buffer,
+                result.byteOffset,
+                result.byteLength
+              );
+
+              // Use Transferable object model to just share object ownership, avoiding copies and other trickeries
+              // https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects
+              transferable = [buf];
+            } else {
+              buf = result;
+              transferable = [];
+            }
 
             self.postMessage(
               {
@@ -65,7 +72,7 @@ self.addEventListener(
                 eventData: buf,
                 eventId: eventId,
               },
-              [buf]
+              transferable
             );
           })
           .catch((error) => {
