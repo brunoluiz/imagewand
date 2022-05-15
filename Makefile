@@ -5,7 +5,7 @@ watch-css:
 	npx tailwindcss -i ./static/css/tailwind.css -o ./public/main.css --watch
 
 watch-html:
-	npx browser-sync --watch
+	cd public && npx browser-sync --watch .
 
 watch-wasm:
 	air

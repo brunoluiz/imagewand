@@ -37,7 +37,7 @@ func convertFromURL() js.Func {
 				return js.Value{}, err
 			}
 
-			return jasm.HTTPResponse(b.Bytes()), nil
+			return jasm.ArrayBuffer(b.Bytes()), nil
 		})
 	})
 }
@@ -62,7 +62,7 @@ func convertFromBlob() js.Func {
 				return js.Value{}, err
 			}
 
-			return jasm.HTTPResponse(b.Bytes()), nil
+			return jasm.ArrayBuffer(b.Bytes()), nil
 		})
 	})
 }
