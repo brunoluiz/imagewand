@@ -1,5 +1,25 @@
+const ImageWand = async (t) => {
+  switch (t) {
+    case instanceType.STANDARD:
+      const go = new window.Go();
+      const result = await WebAssembly.instantiateStreaming(
+        fetch("main.wasm"),
+        go.importObject
+      );
+      const inst = result.instance;
+      go.run(inst); // fire and forget
+      return Promise.resolve(wand);
+
+    case instanceType.WORKER:
+      return wasmWorker("./main.wasm", "wand");
+
+    default:
+      throw new Error("ImageWand type is not supported");
+  }
+};
+
 (async () => {
-  const imagewand = await wasmWorker("./main.wasm", "wand");
+  const imagewand = await ImageWand(instanceType.STANDARD);
   const { ui, setState, ...controller } = Controller();
   setState(state.INITIAL);
 

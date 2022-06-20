@@ -1,3 +1,8 @@
+const instanceType = {
+  STANDARD: "STANDARD",
+  WORKER: "WORKER",
+};
+
 const state = {
   INITIAL: "INITIAL",
   DRAG_ZONE: "DRAG_ZONE",
