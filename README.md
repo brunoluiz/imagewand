@@ -10,7 +10,8 @@ Converts images on the browser, using Golang + WASM
 
 # To-do
 
-- Publish on GH Pages or something similar
+- Publish on GH Pages or Vercel
+- Understand the difference between `worker` x `standard`, as it seems `standard` is not blocking the render anymore
 
 # References
 
@@ -22,4 +23,5 @@ Converts images on the browser, using Golang + WASM
 - https://www.sitepen.com/blog/using-webassembly-with-web-workers
 
 ## Optimisations
+
 - https://www.fermyon.com/blog/optimizing-tinygo-wasm
