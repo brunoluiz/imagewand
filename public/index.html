@@ -1,17 +1,13 @@
-<!doctype html>
-<!--
-Copyright 2018 The Go Authors. All rights reserved.
-Use of this source code is governed by a BSD-style
-license that can be found in the LICENSE file.
--->
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
 	<title>ImageWand</title>
-  <link href="./main.css" rel="stylesheet">
+	<link href="./main.css" rel="stylesheet">
 </head>
 
-<body class='h-screen'>
+<body class='h-screen sm:p-0 p-4'>
 	<main class='max-w-4xl m-auto'>
 		<div class='pt-12 mb-20'>
 			<h1 class='text-4xl font-bold mb-3 tracking-tight text-stone-900'>ImageWand</h1>
@@ -31,23 +27,25 @@ license that can be found in the LICENSE file.
 			'>
 				<span
 					class='text-center m-auto font-semibold text-xl'
-				>🖼️ Drop single image or click to select file</span>
+				>⚡ Loading</span>
 				<input
 					id='uploader'
 					type="file"
 					accept="image/*"
-					onchange='handleUpload(this)'
-					class='opacity-0 absolute left-0 top-0 bottom-0 right-0 cursor-pointer'
+					class='opacity-0 absolute left-0 top-0 bottom-0 right-0 cursor-pointer disabled:cursor-auto'
+					disabled
 				/>
 			</div>
-			<div id='form-actions' class='flex justify-end gap-3'>
+			<div id='form-actions' class='flex justify-end gap-3 flex-col sm:flex-row'>
 				<select
-					id="format"
+					id="format-dropdown"
 					name="format"
 					class='
 					 border-4 border-stone-600 rounded-lg
 					 px-5 py-3
-					 font-bold w-1/4'
+					 font-bold w-full sm:w-1/4
+					 disabled:opacity-50'
+					disabled
 				>
 					<option value="png">To PNG</option>
 					<option value="jpeg">To JPG</option>
@@ -57,6 +55,8 @@ license that can be found in the LICENSE file.
 				</select>
 				<button
 					type="submit"
+					id="submit-btn"
+					disabled
 					class='
 						border-4 border-rose-500 rounded-lg
 						px-10 py-3
@@ -65,9 +65,10 @@ license that can be found in the LICENSE file.
 						transition ease-in-out
 						cursor-pointer
 						hover:scale-105 hover:brightness-105
-						active:scale-100 active:brightness-95'
+						active:scale-100 active:brightness-95
+						disabled:opacity-50 disabled:hover:scale-100 disabled:hover:brightness-100 disabled:cursor-auto'
 				/>
-					Wololo
+					Convert
 				</button>
 			</div>
 		</form>
@@ -78,7 +79,9 @@ license that can be found in the LICENSE file.
 		</div>
 	</main>
 
-	<script src="wasm_exec.js"></script>
+	<script src="wasm-exec.js"></script>
+	<script src="ui.js"></script>
+	<script src="worker-proxy.js"></script>
 	<script src="main.js"></script>
 </body>
 

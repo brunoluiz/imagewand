@@ -4,15 +4,22 @@ Converts images on the browser, using Golang + WASM
 
 # Run locally
 
-- Run `air` in one terminal
-- Run `npx browser-sync --watch` on the `public/` folder in another terminal
+- Run `make watch-css`
+- Run `make watch-html`
+- Run `make watch-wasm`
 
 # To-do
 
-- Discover what causes Golang to block the UI while processing
-- Give some styling to the website
 - Publish on GH Pages or something similar
 
 # References
 
 - https://withblue.ink/2020/10/03/go-webassembly-http-requests-and-promises.html
+- https://github.com/golang/go/issues/25612
+- https://stackoverflow.com/questions/67978442/go-wasm-export-functions
+- https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects
+- https://qvault.io/golang/running-go-in-the-browser-wasm-web-workers/
+- https://www.sitepen.com/blog/using-webassembly-with-web-workers
+
+## Optimisations
+- https://www.fermyon.com/blog/optimizing-tinygo-wasm

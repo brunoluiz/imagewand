@@ -19,10 +19,16 @@ func Error(err error) js.Value {
 
 // HTTPResponse returns a valid HTTP Response
 func HTTPResponse(data []byte) js.Value {
+	dataJS := ArrayBuffer(data)
+	return httpResponseJS.New(dataJS)
+}
+
+// ArrayBuffer returns an Array Buffer
+func ArrayBuffer(data []byte) js.Value {
 	dataJS := uint8ArrayJS.New(len(data))
 	js.CopyBytesToJS(dataJS, data)
 
-	return httpResponseJS.New(dataJS)
+	return dataJS
 }
 
 // Await creates a promise which allows any async code within the WASM program.
