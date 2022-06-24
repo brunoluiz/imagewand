@@ -54,6 +54,7 @@ const Controller = () => {
       case state.INITIAL:
       case state.DRAG_ZONE:
       case state.CONVERTED:
+        uploader.value = "";
         uploader.disabled = false;
         return;
       case state.READY:
