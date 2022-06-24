@@ -1,9 +1,13 @@
+import { Controller, instanceType, state } from "./ui.js";
+import { wasmWorker } from "./worker-proxy.js";
+import "./index.css";
+
 const ImageWand = async (t) => {
   switch (t) {
     case instanceType.STANDARD:
       const go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
-        fetch("main.wasm"),
+        fetch("/main.wasm"),
         go.importObject
       );
       const inst = result.instance;
@@ -11,7 +15,7 @@ const ImageWand = async (t) => {
       return Promise.resolve(wand);
 
     case instanceType.WORKER:
-      return wasmWorker("./main.wasm", "wand");
+      return wasmWorker("/main.wasm", "wand");
 
     default:
       throw new Error("ImageWand type is not supported");

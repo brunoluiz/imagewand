@@ -1,9 +1,9 @@
-const instanceType = {
+export const instanceType = {
   STANDARD: "STANDARD",
   WORKER: "WORKER",
 };
 
-const state = {
+export const state = {
   INITIAL: "INITIAL",
   DRAG_ZONE: "DRAG_ZONE",
   READY: "READY",
@@ -32,7 +32,7 @@ const colorsState = {
   ],
 };
 
-const Controller = () => {
+export const Controller = () => {
   const dropzone = document.querySelector("#dropzone");
   const dropzoneLabel = document.querySelector("#dropzone > span");
   const formatDropdown = document.querySelector('select[name="format"]');

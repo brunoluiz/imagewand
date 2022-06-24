@@ -1,0 +1,16 @@
+{
+  "name": "imagewand",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "amazon-linux-extras install golang1.11 && GOOS=js GOARCH=wasm go build -o ./public/main.wasm ../cmd/wasm && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.4",
+    "vite": "^2.9.9"
+  }
+}

@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-	<link href="./main.css" rel="stylesheet">
+	<!-- <link href="./main.css" rel="stylesheet"> -->
 
   <!-- Primary Meta Tags -->
   <title>ImageWand: Convert images straight in your browser</title>
@@ -93,7 +93,7 @@
 						hover:scale-105 hover:brightness-105
 						active:scale-100 active:brightness-95
 						disabled:opacity-50 disabled:hover:scale-100 disabled:hover:brightness-100 disabled:cursor-auto'
-				/>
+				>
 					Convert
 				</button>
 			</div>
@@ -107,16 +107,15 @@
 			</ul>
 		</div>
 
-		<div id='output' style='display:none'/>
+		<div id='output' style='display:none'>
 			<img width='100%' />
 			<a href='#' download>Download</a>
 		</div>
 	</main>
 
 	<script src="wasm-exec.js"></script>
-	<script src="ui.js"></script>
-	<script src="worker-proxy.js"></script>
-	<script src="main.js"></script>
+	<!-- <script type="module" src="ui.js"></script> -->
+	<script type="module" src="/src/main.js"></script>
 </body>
 
 </html>

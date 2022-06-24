@@ -1,4 +1,4 @@
-const wasmWorker = (modulePath, exportedKey) => {
+export const wasmWorker = (modulePath, exportedKey) => {
   // Create an object to later interact with
   const proxy = {};
 
@@ -7,7 +7,7 @@ const wasmWorker = (modulePath, exportedKey) => {
   let idPromises = {};
 
   return new Promise((resolve, reject) => {
-    const worker = new Worker("worker.js");
+    const worker = new Worker(new URL("./worker.js", import.meta.url));
     worker.postMessage({
       eventType: "INIT",
       eventData: { modulePath, exportedKey },
