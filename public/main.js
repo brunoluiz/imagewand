@@ -52,7 +52,7 @@ const ImageWand = async (t) => {
 
       setState(state.CONVERTED);
       setTimeout(() => setState(state.INITIAL), 5000);
-    }, 1000);
+    }, 500);
 
     return false;
   });

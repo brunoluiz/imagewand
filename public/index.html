@@ -33,7 +33,7 @@
 	<meta name="theme-color" content="#ffffff">
 </head>
 
-<body class='h-screen sm:p-2 p-4'>
+<body class='h-screen sm:p-2 p-4 tracking-tight'>
 	<main class='max-w-4xl m-auto'>
 		<div class='pt-12 mb-20'>
 			<h1 class='text-4xl font-bold mb-3 tracking-tight text-stone-900'>ImageWand</h1>
@@ -52,7 +52,7 @@
 				mb-5
 			'>
 				<span
-					class='text-center m-auto font-semibold text-xl'
+					class='text-center m-auto font-semibold text-xl '
 				>⚡ Loading</span>
 				<input
 					id='uploader'
@@ -98,6 +98,14 @@
 				</button>
 			</div>
 		</form>
+
+		<div id='footer' class='pt-16 pb-16'>
+			<ul class='flex justify-start gap-6 flex-col sm:flex-row font-semibold tracking-tight'>
+				<li><a href='https://github.com/brunoluiz/imagewand' alt='Source code on Github' target="_blank">Source code</a></li>
+				<li><a href='https://github.com/brunoluiz/imagewand/issues' alt='Issue tracker on Github' target="_blank">Issue Tracker</a></li>
+				<li><a href='https://twitter.com/brunoluiz' alt='Twitter' target="_blank">Contact me @ brunoluiz</a></li>
+			</ul>
+		</div>
 
 		<div id='output' style='display:none'/>
 			<img width='100%' />
