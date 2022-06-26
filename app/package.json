@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "amazon-linux-extras install golang1.11 && GOOS=js GOARCH=wasm go build -o ./public/main.wasm ../cmd/wasm && vite build",
+    "build": "yum install golang && GOOS=js GOARCH=wasm go build -o ./public/main.wasm ../cmd/wasm && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
