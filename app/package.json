@@ -4,8 +4,11 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "yum install golang && GOOS=js GOARCH=wasm go build -o ./public/main.wasm ../cmd/wasm && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build": "npm run install:go && npm run install:wasm-exec && npm run build:wasm && vite build",
+    "build:wasm": "GOOS=js GOARCH=wasm go build -o ./public/main.wasm ../cmd/wasm",
+    "install:go": "yum install golang",
+    "install:wasm-exec": "curl -o ./public/wasm-exec.js https://raw.githubusercontent.com/golang/go/go1.16.15/misc/wasm/wasm_exec.js"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
