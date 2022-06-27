@@ -3,9 +3,10 @@ import { wasmWorker } from "./worker-proxy.js";
 import "./index.css";
 
 const ImageWand = async (t) => {
+  let go;
   switch (t) {
     case instanceType.STANDARD:
-      const go = new window.Go();
+      go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
         fetch("/main.wasm"),
         go.importObject
@@ -17,13 +18,27 @@ const ImageWand = async (t) => {
     case instanceType.WORKER:
       return wasmWorker("/main.wasm", "wand");
 
+    case instanceType.TINYGO:
+      go = new window.Go();
+
+      let wasm;
+      if ("instantiateStreaming" in WebAssembly) {
+        const obj = await WebAssembly.instantiateStreaming(
+          fetch("/main.wasm"),
+          go.importObject
+        );
+        wasm = obj.instance;
+        go.run(wasm);
+      }
+
+      return Promise.resolve(wasm.exports);
     default:
       throw new Error("ImageWand type is not supported");
   }
 };
 
 (async () => {
-  const imagewand = await ImageWand(instanceType.STANDARD);
+  const imagewand = await ImageWand(instanceType.TINYGO);
   const { ui, setState, ...controller } = Controller();
   setState(state.INITIAL);
 

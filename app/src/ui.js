@@ -1,6 +1,7 @@
 export const instanceType = {
   STANDARD: "STANDARD",
   WORKER: "WORKER",
+  TINYGO: "TINYGO",
 };
 
 export const state = {
