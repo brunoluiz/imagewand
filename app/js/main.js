@@ -7,9 +7,17 @@ const instanceType = {
 };
 
 const ImageWand = async (t) => {
-  switch (t) {
-    case instanceType.STANDARD:
+  switch (t.toUpperCase()) {
+    case instanceType.WORKER:
+      console.log('Starting as "worker"');
       await import("./wasm-exec.js");
+      return wasmWorker("/wasm/main.wasm", "/js/worker.js", "wand");
+
+    default:
+    case instanceType.STANDARD:
+      console.log('Starting as "standard"');
+      await import("./wasm-exec.js");
+
       const go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
         fetch("/wasm/main.wasm"),
@@ -17,19 +25,15 @@ const ImageWand = async (t) => {
       );
       const inst = result.instance;
       go.run(inst); // fire and forget
+
       return Promise.resolve(wand);
-
-    case instanceType.WORKER:
-      await import("./wasm-exec.js");
-      return wasmWorker("/wasm/main.wasm", "/js/worker.js", "wand");
-
-    default:
-      throw new Error("ImageWand type is not supported");
   }
 };
 
 (async () => {
-  const imagewand = await ImageWand(instanceType.STANDARD);
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  const imagewand = await ImageWand(params.get("type") || params.get("t"));
   const { ui, setState, ...controller } = Controller();
   setState(UIState.INITIAL);
 
