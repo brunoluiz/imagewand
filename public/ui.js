@@ -1,9 +1,4 @@
-const instanceType = {
-  STANDARD: "STANDARD",
-  WORKER: "WORKER",
-};
-
-const state = {
+export const UIState = {
   INITIAL: "INITIAL",
   DRAG_ZONE: "DRAG_ZONE",
   READY: "READY",
@@ -12,27 +7,27 @@ const state = {
 };
 
 const copy = {
-  [state.INITIAL]: "🖼️ Drop a single image or click to select file",
-  [state.DRAG_ZONE]: "Drop file to load",
-  [state.READY]: "🪄 Loaded and ready to convert",
-  [state.LOADING]: "✨ Converting...",
-  [state.CONVERTED]:
+  [UIState.INITIAL]: "🖼️ Drop a single image or click to select file",
+  [UIState.DRAG_ZONE]: "Drop file to load",
+  [UIState.READY]: "🪄 Loaded and ready to convert",
+  [UIState.LOADING]: "✨ Converting...",
+  [UIState.CONVERTED]:
     '✅ Converted! <span class="mt-2 block">Drop or select another file to convert more</span>',
 };
 
 const colorsState = {
-  [state.INITIAL]: ["border-stone-400", "bg-stone-0", "text-stone-700"],
-  [state.DRAG_ZONE]: ["border-stone-700", "bg-stone-300", "text-stone-700"],
-  [state.READY]: ["border-emerald-400", "bg-stone-0", "text-emerald-700"],
-  [state.LOADING]: ["border-amber-700", "bg-stone-0", "text-amber-700"],
-  [state.CONVERTED]: [
+  [UIState.INITIAL]: ["border-stone-400", "bg-stone-0", "text-stone-700"],
+  [UIState.DRAG_ZONE]: ["border-stone-700", "bg-stone-300", "text-stone-700"],
+  [UIState.READY]: ["border-emerald-400", "bg-stone-0", "text-emerald-700"],
+  [UIState.LOADING]: ["border-amber-700", "bg-stone-0", "text-amber-700"],
+  [UIState.CONVERTED]: [
     "border-emerald-700",
     "bg-emerald-100",
     "text-emerald-700",
   ],
 };
 
-const Controller = () => {
+export const Controller = () => {
   const dropzone = document.querySelector("#dropzone");
   const dropzoneLabel = document.querySelector("#dropzone > span");
   const formatDropdown = document.querySelector('select[name="format"]');
@@ -51,13 +46,13 @@ const Controller = () => {
 
     // handles button state
     switch (s) {
-      case state.INITIAL:
-      case state.DRAG_ZONE:
-      case state.CONVERTED:
+      case UIState.INITIAL:
+      case UIState.DRAG_ZONE:
+      case UIState.CONVERTED:
         uploader.value = "";
         uploader.disabled = false;
         return;
-      case state.READY:
+      case UIState.READY:
         submitButton.disabled = false;
         formatDropdown.disabled = false;
         uploader.disabled = false;
@@ -70,8 +65,8 @@ const Controller = () => {
     }
   };
 
-  dropzone.ondragleave = () => setState(state.INITIAL);
-  dropzone.ondragover = () => setState(state.DRAG_ZONE);
+  dropzone.ondragleave = () => setState(UIState.INITIAL);
+  dropzone.ondragover = () => setState(UIState.DRAG_ZONE);
 
   return {
     ui: {

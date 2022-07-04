@@ -1,4 +1,4 @@
-const wasmWorker = (modulePath, exportedKey) => {
+export const wasmWorker = (modulePath, exportedKey) => {
   // Create an object to later interact with
   const proxy = {};
 

@@ -1,6 +1,15 @@
+import { Controller, UIState } from "./ui.js";
+import { wasmWorker } from "./worker-proxy.js";
+
+const instanceType = {
+  STANDARD: "STANDARD",
+  WORKER: "WORKER",
+};
+
 const ImageWand = async (t) => {
   switch (t) {
     case instanceType.STANDARD:
+      await import("./wasm-exec.js");
       const go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
         fetch("main.wasm"),
@@ -11,6 +20,7 @@ const ImageWand = async (t) => {
       return Promise.resolve(wand);
 
     case instanceType.WORKER:
+      await import("./wasm-exec.js");
       return wasmWorker("./main.wasm", "wand");
 
     default:
@@ -21,12 +31,12 @@ const ImageWand = async (t) => {
 (async () => {
   const imagewand = await ImageWand(instanceType.STANDARD);
   const { ui, setState, ...controller } = Controller();
-  setState(state.INITIAL);
+  setState(UIState.INITIAL);
 
   let buf;
   controller.onSubmit(async (e) => {
     e.preventDefault();
-    setState(state.LOADING);
+    setState(UIState.LOADING);
 
     // Configures a second delay so user doesn't see flickering
     setTimeout(async () => {
@@ -50,8 +60,8 @@ const ImageWand = async (t) => {
       URL.revokeObjectURL(objectURL);
       buf = null;
 
-      setState(state.CONVERTED);
-      setTimeout(() => setState(state.INITIAL), 5000);
+      setState(UIState.CONVERTED);
+      setTimeout(() => setState(UIState.INITIAL), 5000);
     }, 500);
 
     return false;
@@ -73,6 +83,6 @@ const ImageWand = async (t) => {
     }
 
     buf = await files[0].arrayBuffer();
-    setState(state.READY);
+    setState(UIState.READY);
   });
 })();

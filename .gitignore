@@ -9,4 +9,4 @@ out/*.jpg
 out/*.png
 out/*.tiff
 out/*.bmp
-public/main.wasm
+*.wasm
