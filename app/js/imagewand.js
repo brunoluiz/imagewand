@@ -2,7 +2,7 @@ import { wasmWorker } from "./worker-proxy.js";
 
 const InstanceType = {
   STANDARD: "STANDARD",
-  WORKER: "WORKER_STANDARD",
+  WORKER: "WORKER",
   TINYGO: "TINYGO",
 };
 
@@ -14,14 +14,16 @@ export const fromURL = (href) => {
 
 export const ImageWand = async (t) => {
   let go;
+  if (!t) t = InstanceType.STANDARD;
 
   switch (t.toUpperCase()) {
     case InstanceType.WORKER:
       console.log('Starting as "worker"');
-      await import("./wasm-exec.js");
-      return wasmWorker("/wasm/main.wasm", "/js/worker.js", "wand");
+      await import("./wasm-go-exec.js");
+      return wasmWorker("/wasm/main-go.wasm", "/js/worker.js", "wand");
 
     case InstanceType.TINYGO:
+      console.log('Starting as "tinygo"');
       await import("./wasm-tinygo-exec.js");
       go = new window.Go();
 
@@ -38,11 +40,11 @@ export const ImageWand = async (t) => {
     default:
     case InstanceType.STANDARD:
       console.log('Starting as "standard"');
-      await import("./wasm-exec.js");
+      await import("./wasm-go-exec.js");
 
       go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
-        fetch("/wasm/main.wasm"),
+        fetch("/wasm/main-go.wasm"),
         go.importObject
       );
       const inst = result.instance;

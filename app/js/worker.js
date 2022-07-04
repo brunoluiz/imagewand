@@ -20,7 +20,7 @@ self.addEventListener(
     const { eventType, eventData, eventId } = event.data;
     switch (eventType) {
       case "INIT":
-        importScripts("./wasm-exec.js"); // required for Golang WASM (comes from Golang repo)
+        importScripts("./wasm-go-exec.js"); // required for Golang WASM (comes from Golang repo)
         const go = new self.Go();
 
         const instantiatedModule = await WebAssembly.instantiateStreaming(
