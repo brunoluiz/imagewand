@@ -12,7 +12,8 @@
     "install:vercel": "npm run install:vercel:go && npm install",
     "install:vercel:go": "npm run install:vercel:go:bin && npm run install:vercel:go:wasm-exec",
     "install:vercel:go:bin": "yum install golang",
-    "install:vercel:go:wasm-exec": "curl -o ./app/js/wasm-exec.js https://raw.githubusercontent.com/golang/go/go1.16.15/misc/wasm/wasm_exec.js"
+    "install:vercel:go:wasm-exec": "curl -o ./app/js/wasm-go-exec.js https://raw.githubusercontent.com/golang/go/go1.16.15/misc/wasm/wasm_exec.js",
+    "install:vercel:tinygo:deps": "yum install tar xz gzip"
   },
   "repository": {
     "type": "git",
