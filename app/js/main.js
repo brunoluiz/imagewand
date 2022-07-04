@@ -1,39 +1,8 @@
 import { Controller, UIState } from "./ui.js";
-import { wasmWorker } from "./worker-proxy.js";
-
-const instanceType = {
-  STANDARD: "STANDARD",
-  WORKER: "WORKER",
-};
-
-const ImageWand = async (t) => {
-  switch (t.toUpperCase()) {
-    case instanceType.WORKER:
-      console.log('Starting as "worker"');
-      await import("./wasm-exec.js");
-      return wasmWorker("/wasm/main.wasm", "/js/worker.js", "wand");
-
-    default:
-    case instanceType.STANDARD:
-      console.log('Starting as "standard"');
-      await import("./wasm-exec.js");
-
-      const go = new window.Go();
-      const result = await WebAssembly.instantiateStreaming(
-        fetch("/wasm/main.wasm"),
-        go.importObject
-      );
-      const inst = result.instance;
-      go.run(inst); // fire and forget
-
-      return Promise.resolve(wand);
-  }
-};
+import { fromURL } from "./imagewand.js";
 
 (async () => {
-  const url = new URL(window.location.href);
-  const params = new URLSearchParams(url.search);
-  const imagewand = await ImageWand(params.get("type") || params.get("t"));
+  const imagewand = await fromURL(window.location.href);
   const { ui, setState, ...controller } = Controller();
   setState(UIState.INITIAL);
 
