@@ -11,3 +11,5 @@ out/*.tiff
 out/*.bmp
 *.wasm
 node_modules
+
+.vercel
