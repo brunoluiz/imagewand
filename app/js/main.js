@@ -12,7 +12,7 @@ const ImageWand = async (t) => {
       await import("./wasm-exec.js");
       const go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
-        fetch("main.wasm"),
+        fetch("/wasm/main.wasm"),
         go.importObject
       );
       const inst = result.instance;
@@ -21,7 +21,7 @@ const ImageWand = async (t) => {
 
     case instanceType.WORKER:
       await import("./wasm-exec.js");
-      return wasmWorker("./main.wasm", "wand");
+      return wasmWorker("/wasm/main.wasm", "/js/worker.js", "wand");
 
     default:
       throw new Error("ImageWand type is not supported");
