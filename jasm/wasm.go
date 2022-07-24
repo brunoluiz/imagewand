@@ -52,6 +52,7 @@ func Await(cb func() (js.Value, error)) js.Value {
 
 		return nil
 	})
+	defer handler.Release()
 
 	return promiseJS.New(handler)
 }

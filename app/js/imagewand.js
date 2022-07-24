@@ -27,14 +27,14 @@ export const ImageWand = async (t) => {
       await import("./wasm-tinygo-exec.js");
       go = new window.Go();
 
-      let wasm;
       const obj = await WebAssembly.instantiateStreaming(
         fetch("/wasm/main-tinygo.wasm"),
         go.importObject
       );
-      wasm = obj.instance;
+      const wasm = obj.instance;
       go.run(wasm);
 
+      // uses the WASM binary exported functions
       return Promise.resolve(wasm.exports);
 
     default:
@@ -50,6 +50,7 @@ export const ImageWand = async (t) => {
       const inst = result.instance;
       go.run(inst); // fire and forget
 
+      // uses the global `wand`
       return Promise.resolve(wand);
   }
 };

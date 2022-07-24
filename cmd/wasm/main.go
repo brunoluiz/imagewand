@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"net/http"
 	"syscall/js"
 
@@ -68,8 +67,6 @@ func convertFromBlob() js.Func {
 }
 
 func main() {
-	fmt.Println("Starting ImageWand 🪄")
-
 	js.Global().Set("wand", map[string]interface{}{
 		"convertFromURL":  convertFromURL(),
 		"convertFromBlob": convertFromBlob(),
