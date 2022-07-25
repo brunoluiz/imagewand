@@ -3,14 +3,12 @@ package main
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"syscall/js"
 
 	"github.com/brunoluiz/imagewand"
 	"github.com/brunoluiz/imagewand/jasm"
 )
 
-//export convertFromBlob
 func convertFromBlob() js.Func {
 	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		return jasm.Await(func() (js.Value, error) {
@@ -37,5 +35,8 @@ func convertFromBlob() js.Func {
 }
 
 func main() {
-	fmt.Println("Starting ImageWand 🪄")
+	js.Global().Set("wand", map[string]interface{}{
+		"convertFromBlob": convertFromBlob(),
+	})
+	<-make(chan bool)
 }

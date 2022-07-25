@@ -13,19 +13,19 @@ export const fromURL = (href) => {
 };
 
 export const ImageWand = async (t) => {
-  let go;
   if (!t) t = InstanceType.STANDARD;
 
   switch (t.toUpperCase()) {
-    case InstanceType.WORKER:
+    case InstanceType.WORKER: {
       console.log('Starting as "worker"');
       await import("./wasm-go-exec.js");
       return wasmWorker("/wasm/main-go.wasm", "/js/worker.js", "wand");
+    }
 
-    case InstanceType.TINYGO:
+    case InstanceType.TINYGO: {
       console.log('Starting as "tinygo"');
       await import("./wasm-tinygo-exec.js");
-      go = new window.Go();
+      const go = new window.Go();
 
       const obj = await WebAssembly.instantiateStreaming(
         fetch("/wasm/main-tinygo.wasm"),
@@ -35,14 +35,15 @@ export const ImageWand = async (t) => {
       go.run(wasm);
 
       // uses the WASM binary exported functions
-      return Promise.resolve(wasm.exports);
+      return Promise.resolve(wand);
+    }
 
     default:
-    case InstanceType.STANDARD:
+    case InstanceType.STANDARD: {
       console.log('Starting as "standard"');
       await import("./wasm-go-exec.js");
 
-      go = new window.Go();
+      const go = new window.Go();
       const result = await WebAssembly.instantiateStreaming(
         fetch("/wasm/main-go.wasm"),
         go.importObject
@@ -52,5 +53,6 @@ export const ImageWand = async (t) => {
 
       // uses the global `wand`
       return Promise.resolve(wand);
+    }
   }
 };
