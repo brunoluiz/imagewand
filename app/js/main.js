@@ -1,5 +1,5 @@
 import { Controller, UIState } from "./ui.js";
-import { fromURL } from "./imagewand.js";
+import { fromURL, formatToNumber } from "./imagewand.js";
 
 (async () => {
   const imagewand = await fromURL(window.location.href);
@@ -16,7 +16,7 @@ import { fromURL } from "./imagewand.js";
       // Calls Golang WASM runtime and receive HTTP response
       const format = controller.getFormat();
       const arrayBuffer = await imagewand.convertFromBlob(
-        format,
+        formatToNumber(format),
         new Uint8Array(buf)
       );
       const blob = new Blob([arrayBuffer]);

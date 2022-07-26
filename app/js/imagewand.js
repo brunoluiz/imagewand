@@ -6,6 +6,16 @@ const InstanceType = {
   TINYGO: "TINYGO",
 };
 
+export const formatGoNumber = {
+  jpg: 1,
+  png: 2,
+  gif: 3,
+  tiff: 4,
+  bmp: 5,
+};
+
+export const formatToNumber = (input) => formatGoNumber[input];
+
 export const fromURL = (href) => {
   const url = new URL(href);
   const params = new URLSearchParams(url.search);
