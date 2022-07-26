@@ -14,6 +14,7 @@ watch-html:
 	cd app && npx browser-sync --watch .
 
 benchmark:
+	rm -rf ./bench
 	mkdir -p ./bench
 	# go
 	GOOS=js GOARCH=wasm go build -o ./bench/go.vanilla.wasm ./cmd/wasm
