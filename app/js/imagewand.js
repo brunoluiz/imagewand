@@ -4,6 +4,7 @@ const InstanceType = {
   STANDARD: "STANDARD",
   WORKER: "WORKER",
   TINYGO: "TINYGO",
+  WASI: "WASI",
 };
 
 export const formatGoNumber = {
@@ -46,6 +47,22 @@ export const ImageWand = async (t) => {
 
       // uses the WASM binary exported functions
       return Promise.resolve(wand);
+    }
+
+    case InstanceType.WASI: {
+      console.log('Starting as "wasi"');
+      await import("./wasm-tinygo-exec.js");
+      const go = new window.Go();
+
+      const obj = await WebAssembly.instantiateStreaming(
+        fetch("/wasm/main-wasi.wasm"),
+        go.importObject
+      );
+      const wasm = obj.instance;
+      go.run(wasm);
+
+      // uses the WASM binary exported functions
+      return Promise.resolve(wasm.exports);
     }
 
     default:
