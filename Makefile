@@ -5,7 +5,7 @@ build-wasm-tinygo:
 	tinygo build -o app/wasm/main-tinygo.wasm -target wasm -no-debug -gc leaking ./cmd/wasm
 
 build-wasi-tinygo:
-	tinygo build -o app/wasm/main-tinygo.wasm -target wasi -no-debug -gc leaking ./cmd/wasi
+	tinygo build -o app/wasm/main-wasi.wasm -target wasm ./cmd/wasi
 
 watch-wasm:
 	go run github.com/cosmtrek/air@latest
