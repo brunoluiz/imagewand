@@ -15,10 +15,16 @@ import { fromURL, formatToNumber } from "./imagewand.js";
     setTimeout(async () => {
       // Calls Golang WASM runtime and receive HTTP response
       const format = controller.getFormat();
-      const arrayBuffer = await imagewand.convertFromBlob(
-        formatToNumber(format),
-        new Uint8Array(buf)
-      );
+
+      imagewand.reset();
+      new Uint8Array(buf).forEach((b) => imagewand.appendToBuffer(b));
+      await imagewand.convertFromBlob(formatToNumber(format));
+      const outputSize = imagewand.getOutputSize();
+      const arrayBuffer = new Uint8Array(outputSize);
+      for (let i = 0; i < outputSize; i++) {
+        arrayBuffer[i] = imagewand.getOutputAtPos(i);
+      }
+
       const blob = new Blob([arrayBuffer]);
 
       // Creates local ObjectURL, used for download and display
