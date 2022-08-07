@@ -1,8 +1,13 @@
+build: build-wasm build-wasm-tinygo build-css
+
 build-wasm:
 	GOOS=js GOARCH=wasm go build -o ./app/wasm/main-go.wasm -ldflags="-s -w" ./cmd/wasm
 
 build-wasm-tinygo:
 	tinygo build -o app/wasm/main-tinygo.wasm -target wasm -no-debug -gc leaking ./cmd/wasm
+
+build-css:
+	npx tailwindcss -i ./app/css/__tailwind.css -o ./app/css/main.css
 
 watch-wasm:
 	go run github.com/cosmtrek/air@latest

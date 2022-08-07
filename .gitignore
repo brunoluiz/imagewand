@@ -1,9 +1,4 @@
 .tmp
-/*.jpeg
-/*.jpg
-/*.png
-/*.tiff
-/*.bmp
 out/*.jpeg
 out/*.jpg
 out/*.png
