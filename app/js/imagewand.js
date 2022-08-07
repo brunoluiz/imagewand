@@ -1,11 +1,15 @@
 import { wasmWorker } from "./worker-proxy.js";
 
+// Available ImageWand modes/binary types
 const InstanceType = {
-  STANDARD: "STANDARD",
-  WORKER: "WORKER",
-  TINYGO: "TINYGO",
+  STANDARD: "STANDARD", // Golang
+  WORKER: "WORKER", // Golang (uses a worker); This was mostly an experiment
+  TINYGO: "TINYGO", // TinyGo
 };
 
+// TinyGo does not work well with strings (throws a `syscall/js.finalizeRef` error). In ImageWand case
+// these could be replaced with integers (enum). There are hacks around the string usage, but it still leads
+// to memory leaks https://github.com/tinygo-org/tinygo/issues/1140
 export const formatGoNumber = {
   jpg: 1,
   png: 2,
@@ -22,6 +26,8 @@ export const fromURL = (href) => {
   return ImageWand(params.get("type") || params.get("t"));
 };
 
+// Based on a t (binary type), it selects the correct wasm_exec.js and load the correct binary.
+// This because TinyGo and Golang use different wasm_exec.js.
 export const ImageWand = async (t) => {
   if (!t) t = InstanceType.STANDARD;
 

@@ -1,3 +1,8 @@
+//
+// This was just an experiment I had to play around web workers + WebAssembly.
+// It is not an essential part of ImageWand.
+//
+
 // Polyfill instantiateStreaming for browsers missing it
 if (!WebAssembly.instantiateStreaming) {
   WebAssembly.instantiateStreaming = async (resp, importObject) => {

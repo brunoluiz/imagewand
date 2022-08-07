@@ -1,3 +1,8 @@
+//
+// This was just an experiment I had to play around web workers + WebAssembly.
+// It is not an essential part of ImageWand.
+//
+
 export const wasmWorker = (modulePath, workerPath, exportedKey) => {
   // Create an object to later interact with
   const proxy = {};
