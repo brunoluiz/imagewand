@@ -2,7 +2,7 @@ import { wasmWorker } from "./worker-proxy.js";
 
 // Available ImageWand modes/binary types
 const InstanceType = {
-  STANDARD: "STANDARD", // Golang
+  GO: "GO", // Golang
   WORKER: "WORKER", // Golang (uses a worker); This was mostly an experiment
   TINYGO: "TINYGO", // TinyGo
 };
@@ -29,15 +29,10 @@ export const fromURL = (href) => {
 // Based on a t (binary type), it selects the correct wasm_exec.js and load the correct binary.
 // This because TinyGo and Golang use different wasm_exec.js.
 export const ImageWand = async (t) => {
-  if (!t) t = InstanceType.STANDARD;
+  if (!t) t = InstanceType.TINYGO;
 
   switch (t.toUpperCase()) {
-    case InstanceType.WORKER: {
-      console.log('Starting as "worker"');
-      await import("./wasm-go-exec.js");
-      return wasmWorker("/wasm/main-go.wasm", "/js/worker.js", "wand");
-    }
-
+    default:
     case InstanceType.TINYGO: {
       console.log('Starting as "tinygo"');
       await import("./wasm-tinygo-exec.js");
@@ -54,7 +49,6 @@ export const ImageWand = async (t) => {
       return Promise.resolve(wand);
     }
 
-    default:
     case InstanceType.STANDARD: {
       console.log('Starting as "standard"');
       await import("./wasm-go-exec.js");
@@ -69,6 +63,12 @@ export const ImageWand = async (t) => {
 
       // uses the global `wand`
       return Promise.resolve(wand);
+    }
+
+    case InstanceType.WORKER: {
+      console.log('Starting as "worker"');
+      await import("./wasm-go-exec.js");
+      return wasmWorker("/wasm/main-go.wasm", "/js/worker.js", "wand");
     }
   }
 };

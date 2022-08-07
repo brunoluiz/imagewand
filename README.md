@@ -21,9 +21,9 @@ A blog post will be available soon with more learnings about the project.
 - Run `make watch-css`: required for UI changes due to Tailwind
 - The content will be served at [localhost:3000](http://localhost:3000)
 
-## Select TinyGo binary on load
+## Select custom binary on load (TinyGo or Golang)
 
-When loading the application, it will try to run using `standard` (at the moment: Golang binary). If you wish to use `tinygo`, add `?t=tinygo`. See all supported ones at [./app/js/imagewand.js](./app/js/imagewand.js).
+When loading the application, it will try to run using `tinygo`. If you wish to use `go`, add `?t=go`. See all supported ones at [./app/js/imagewand.js](./app/js/imagewand.js).
 
 # References
 
