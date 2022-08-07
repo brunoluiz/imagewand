@@ -2,7 +2,9 @@
 <p align="center">Private-first image conversion within browsers, powered by WASM ✨</p>
 
 <center>
-  <img src='./cover.jpg' />
+  <a href='http://unsplash.com/photos/NbgQfUvKFE0'>
+    <img src='./cover.jpg' alt='Photo by Mark Tegethoff'/>
+  </a>
 </center>
 
 # Summary
