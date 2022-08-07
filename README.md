@@ -37,3 +37,4 @@ When loading the application, it will try to run using `tinygo`. If you wish to 
 * [Standardizing WASI: A system interface to run WebAssembly outside the web](https://hacks.mozilla.org/2019/03/standardizing-wasi-a-webassembly-system-interface/)
 * [WASI](https://wasi.dev/)
 * [WebAssembly Linear Memory example](https://wasmbyexample.dev/examples/webassembly-linear-memory/webassembly-linear-memory.go.en-us.html#)
+* [How can I use GitHub Actions with Vercel?](https://vercel.com/support/articles/how-can-i-use-github-actions-with-vercel)
