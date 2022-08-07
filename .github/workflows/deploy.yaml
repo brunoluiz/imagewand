@@ -1,0 +1,42 @@
+name: GitHub Actions Vercel Production Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Vercel CLI
+
+        run: npm install --global vercel@latest
+      - uses: actions/checkout@v3
+
+      - name: Install Golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
+
+      - name: Download and Install TinyGo
+        run: |
+          wget https://github.com/tinygo-org/tinygo/releases/download/v0.25.0/tinygo_0.25.0_amd64.deb
+          sudo dpkg -i tinygo_0.25.0_amd64.deb
+
+      - name: Build Golang WASM
+        run: GOOS=js GOARCH=wasm go build -o ./app/wasm/main-go.wasm ./cmd/wasm
+
+      - name: Build TinyGo WASM
+        run: tinygo build -o app/wasm/main-tinygo.wasm -target wasm -no-debug -gc leaking ./cmd/wasm
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

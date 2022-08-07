@@ -6,14 +6,9 @@
   "scripts": {
     "dev:html": "browser-sync start --watch -s app",
     "dev:css": "tailwindcss -i ./app/css/__tailwind.css -o ./app/css/main.css --watch",
-    "build": "npm run build:go:wasm && npm run build:css",
-    "build:go:wasm": "GOOS=js GOARCH=wasm go build -o ./app/wasm/main-go.wasm ./cmd/wasm",
+    "build": "npm run build:css",
     "build:css": "tailwindcss -i ./app/css/__tailwind.css -o ./app/css/main.css",
-    "install:vercel": "npm run install:vercel:go && npm install",
-    "install:vercel:go": "npm run install:vercel:go:bin && npm run install:vercel:go:wasm-exec",
-    "install:vercel:go:bin": "yum install golang",
-    "install:vercel:go:wasm-exec": "curl -o ./app/js/wasm-go-exec.js https://raw.githubusercontent.com/golang/go/go1.16.15/misc/wasm/wasm_exec.js",
-    "install:vercel:tinygo:deps": "yum install tar xz gzip"
+    "install:vercel": "npm install"
   },
   "repository": {
     "type": "git",
