@@ -11,9 +11,9 @@
 
 Many image conversion websites require users to upload images to a server, which then converts it and send to the user. The problem is that images might get stored for an indefinite amount of time in these servers, which is not great for privacy. ImageWand does all the image conversion on the client-side, leveraging WebAssembly.
 
-This project was part of my experiments with Golang & WebAssembly. It obviously have space for improvements, so please do open issues if you find that something can be improved. It can be compiled using Golang or TinyGo, although the deployed version uses Golang for now due to Vercel limitations. 
+This project was part of my experiments with Golang & WebAssembly. It obviously have space for improvements, so please do open issues if you find that something can be improved. It can be compiled using Golang or TinyGo, although the deployed version uses Golang for now due to Vercel limitations.
 
-A blog post will be available soon with more learnings about the project.
+More details about the project's implementation at [**ImageWand: privacy-first image conversion experiment with Golang & WASM**](https://brunoluiz.net/blog/2022/aug/imagewand-privacy-first-image-conversion-experiment-with-golang-and-wasm/).
 
 # How to run locally
 
